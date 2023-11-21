@@ -1,0 +1,34 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="template.xhtml">
+
+    <ui:define name="title">Testseite</ui:define>
+    <ui:define name="content">
+        <h:body>
+            <h:form>
+                <p:dataTable var="exp" value="#{expansionBean.expansions}">
+                    <p:column headerText="Id">
+                        <h:outputText value="#{exp.id}"/>
+                    </p:column>
+
+                    <p:column headerText="Name">
+                        <h:outputText value="#{exp.name}"/>
+                    </p:column>
+
+                    <p:column headerText="Year">
+                        <h:outputText value="#{exp.year}"/>
+                    </p:column>
+
+                    <p:column headerText="Owned">
+                        <h:outputText value="#{exp.owned}"/>
+                    </p:column>
+                </p:dataTable>
+                <br/>
+                <br/>
+                <p:commandButton action="#{expansionBean.redirect()}" value="TO INDEX"/>
+            </h:form>
+        </h:body>
+    </ui:define>
+</ui:composition>

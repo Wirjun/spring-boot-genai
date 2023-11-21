@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+    <nav class="navbar" id="navbar">
+        <ul class="navbar-nav">
+            <li class="logo">
+                <a class="nav-link" onclick="toggleNavbar()" style="cursor: pointer;">
+                    <i class="fas fa-bars fa-2x"/>
+                    <span class="link-text logo-text">Template</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="${pageContext.request.contextPath}/index.xhtml" class="nav-link">
+                    <i class="fa-solid fa-cat fa-2xl"/>
+                    <span class="link-text">Cats</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fa-brands fa-reddit-alien fa-2xl"/>
+                    <span class="link-text">Aliens</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fa-solid fa-rocket fa-2xl"/>
+                    <span class="link-text">Spacee</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="${pageContext.request.contextPath}/dashboard.xhtml" class="nav-link">
+                    <i class="fa-solid fa-gauge-high fa-2xl"/>
+                    <span class="link-text">Dashboard</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+
+</ui:composition>
+

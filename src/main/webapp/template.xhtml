@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <h:outputStylesheet library="webjars" name="font-awesome/6.0.0/css/all.min-jsf.css"/>
+    <h:outputStylesheet library="webjars" name="font-awesome/6.0.0/css/v4-shims.min-jsf.css"/>
+    <h:outputStylesheet name="/styles.css" library="css"/> <!-- main css -->
+    <h:outputScript name="/toggleNavbar.js" library="js"/> <!-- toggleNavbar -->
+</h:head>
+
+<h:body>
+    <ui:include src="./header.xhtml"/>
+    <ui:include src="./footer.xhtml"/>
+    <ui:include src="./menu.xhtml"/>
+    <div class="main-content">
+        <ui:insert name="content"/>
+    </div>
+</h:body>
+</html>

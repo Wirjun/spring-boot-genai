@@ -1,0 +1,14 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="template.xhtml">
+    <ui:define name="title">Testseite</ui:define>
+    <ui:define name="content">
+        <h:body>
+            <h:form>
+                <p:commandButton action="/table?faces-redirect=true" value="TO TABLE"/>
+            </h:form>
+        </h:body>
+    </ui:define>
+</ui:composition>
