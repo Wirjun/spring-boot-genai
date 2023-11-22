@@ -21,8 +21,7 @@ public class Data {
 
     public Data() {    }
 
-    public Data(Long id, String text, String summary, Integer token, String vector) {
-        this.id = id;
+    public Data(String text, String summary, Integer token, String vector) {
         this.text = text;
         this.summary = summary;
         this.token = token;

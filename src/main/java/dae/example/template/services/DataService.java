@@ -2,10 +2,19 @@ package dae.example.template.services;
 
 import dae.example.template.entities.Data;
 import dae.example.template.repos.DataRepo;
+import org.apache.commons.text.StringEscapeUtils;
+import org.primefaces.shaded.json.JSONArray;
+import org.primefaces.shaded.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Service
@@ -21,6 +30,11 @@ public class DataService {
 
     public List<Data> findAll() {
         return expansionRepo.findAll();
+    }
+
+    @Transactional
+    public Data saveOrUpdate(Data data){
+        return expansionRepo.save(data);
     }
 
     public Data findById(final Long id) {
@@ -43,7 +57,7 @@ public class DataService {
                     "], \"temperature\": 0.7, \"top_p\": 0.95, \"frequency_penalty\": 0, \"presence_penalty\": 0, \"max_tokens\": 800, \"stop\": null}";
 
             try(OutputStream os = con.getOutputStream()) {
-                byte[] input = jsonInputString.getBytes("utf-8");
+                byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
                 os.write(input, 0, input.length);
             }
 
@@ -76,10 +90,10 @@ public class DataService {
             con.setRequestProperty("Ocp-Apim-Subscription-Key", API_KEY);
             con.setDoOutput(true);
 
-            String jsonInputString = "{\"input\": \"" + summary + "\"}";
+            String jsonInputString = "{\"input\": \"" + StringEscapeUtils.escapeJava(summary) + "\"}";
 
             try(OutputStream os = con.getOutputStream()) {
-                byte[] input = jsonInputString.getBytes("utf-8");
+                byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
                 os.write(input, 0, input.length);
             }
 
