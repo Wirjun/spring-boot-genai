@@ -16,6 +16,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional(readOnly = true)
@@ -126,9 +127,9 @@ public class DataService {
         }
     }
 
-    public String answer(String question, Map<String, List<String>> context) {
+    public String answer(String question, Map<String, String> context) {
         try {
-            URL url = new URL(API_URL);
+            URL url = new URL(SUMMARY_API_URL);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
             con.setRequestProperty("Content-Type", "application/json");
@@ -143,12 +144,10 @@ public class DataService {
                     .put("content", "You will answer the question according to the knowledge provided. If the word 'unknown' is provided, you will answer that no information was found in the knowledge data. When information from the context is available, you will answer the question to the user!"));
             
             // Add context messages
-            for (Map.Entry<String, List<String>> entry : context.entrySet()) {
-                for (String value : entry.getValue()) {
-                    messages.put(new JSONObject()
-                            .put("role", "assistant")
-                            .put("content", value));
-                }
+            for (Map.Entry<String, String> entry : context.entrySet()) {
+                messages.put(new JSONObject()
+                        .put("role", entry.getKey())
+                        .put("content", entry.getValue()));
             }
 
             // Add the user question
@@ -168,7 +167,7 @@ public class DataService {
 
             // Send the request
             try(OutputStream os = con.getOutputStream()) {
-                byte[] input = requestBody.toString().getBytes("utf-8");
+                byte[] input = requestBody.toString().getBytes(StandardCharsets.UTF_8);
                 os.write(input, 0, input.length);
             }
 
