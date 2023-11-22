@@ -1,8 +1,6 @@
 package dae.example.template;
 
-import dae.example.template.entities.Data;
-import dae.example.template.services.ExpansionService;
-import org.junit.jupiter.api.Assertions;
+import dae.example.template.services.DataService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class TemplateApplicationTests {
 
     @Autowired
-    ExpansionService expansionService;
+    DataService dataService;
 
     @Test
     public void test() {

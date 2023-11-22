@@ -4,30 +4,31 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="template.xhtml">
 
-    <ui:define name="title">Testseite</ui:define>
+    <ui:define name="title">Data</ui:define>
     <ui:define name="content">
         <h:body>
             <h:form>
-                <p:dataTable var="exp" value="#{expansionBean.data}">
-                    <p:column headerText="Id">
-                        <h:outputText value="#{exp.id}"/>
+                <p:dataTable var="data" value="#{dataBean.datas}">
+                    <p:column headerText="#">
+                        <h:outputText value="#{data.id}"/>
                     </p:column>
 
-                    <p:column headerText="Name">
-                        <h:outputText value="#{exp.name}"/>
+                    <p:column headerText="Text">
+                        <h:outputText value="#{data.text}"/>
                     </p:column>
 
-                    <p:column headerText="Year">
-                        <h:outputText value="#{exp.year}"/>
+                    <p:column headerText="Summary">
+                        <h:outputText value="#{data.summary}"/>
                     </p:column>
 
-                    <p:column headerText="Owned">
-                        <h:outputText value="#{exp.owned}"/>
+                    <p:column headerText="Token">
+                        <h:outputText value="#{data.token}"/>
+                    </p:column>
+
+                    <p:column headerText="Vector">
+                        <h:outputText value="#{data.vector}"/>
                     </p:column>
                 </p:dataTable>
-                <br/>
-                <br/>
-                <p:commandButton action="#{expansionBean.redirect()}" value="TO INDEX"/>
             </h:form>
         </h:body>
     </ui:define>
