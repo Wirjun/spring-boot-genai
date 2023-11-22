@@ -19,6 +19,8 @@ public class DataBean {
 
     private List<Data> data;
 
+    private String inputData;
+
     @PostConstruct
     public void init() {
         data = dataService.findAll();
@@ -32,8 +34,23 @@ public class DataBean {
         this.data = data;
     }
 
+    public String getInputData() {
+        return inputData;
+    }
+
+    public void setInputData(String inputData) {
+        this.inputData = inputData;
+    }
+
     public void redirect() throws IOException {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         facesContext.getExternalContext().redirect("/index.xhtml");
+    }
+
+    public void uploadAndSave() {
+        String summary = dataService.createSummary(inputData);
+        String embedding = dataService.createEmbedding(summary);
+        Data data = new Data(inputData, summary, 0, embedding);
+        dataService.saveOrUpdate(data);
     }
 }
