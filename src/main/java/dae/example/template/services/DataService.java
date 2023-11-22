@@ -112,5 +112,70 @@ public class DataService {
         }
     }
 
+    public String answer(String question, Map<String, List<String>> context) {
+        try {
+            URL url = new URL(API_URL);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("POST");
+            con.setRequestProperty("Content-Type", "application/json");
+            con.setRequestProperty("api-key", API_KEY);
+            con.setRequestProperty("Ocp-Apim-Subscription-Key", API_KEY);
+            con.setDoOutput(true);
+
+            // Build the messages JSON array
+            JSONArray messages = new JSONArray();
+            messages.put(new JSONObject()
+                    .put("role", "system")
+                    .put("content", "You will answer the question according to the knowledge provided. If the word 'unknown' is provided, you will answer that no information was found in the knowledge data. When information from the context is available, you will answer the question to the user!"));
+            
+            // Add context messages
+            for (Map.Entry<String, List<String>> entry : context.entrySet()) {
+                for (String value : entry.getValue()) {
+                    messages.put(new JSONObject()
+                            .put("role", "assistant")
+                            .put("content", value));
+                }
+            }
+
+            // Add the user question
+            messages.put(new JSONObject()
+                    .put("role", "user")
+                    .put("content", question));
+
+            // Create the request body
+            JSONObject requestBody = new JSONObject();
+            requestBody.put("messages", messages);
+            requestBody.put("temperature", 0.7);
+            requestBody.put("top_p", 0.95);
+            requestBody.put("frequency_penalty", 0);
+            requestBody.put("presence_penalty", 0);
+            requestBody.put("max_tokens", 800);
+            requestBody.put("stop", JSONObject.NULL);
+
+            // Send the request
+            try(OutputStream os = con.getOutputStream()) {
+                byte[] input = requestBody.toString().getBytes("utf-8");
+                os.write(input, 0, input.length);
+            }
+
+            // Read the response
+            StringBuilder response = new StringBuilder();
+            try(BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+                String responseLine;
+                while ((responseLine = br.readLine()) != null) {
+                    response.append(responseLine.trim());
+                }
+            }
+
+            // Parse JSON and extract the answer
+            JSONObject jsonResponse = new JSONObject(response.toString());
+            String answer = jsonResponse.getJSONArray("choices").getJSONObject(0).getJSONObject("message").getString("content");
+
+            return answer;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error occurred while retrieving answer";
+        }
+    }
 
 }
