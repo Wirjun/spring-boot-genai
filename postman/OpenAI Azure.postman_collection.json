@@ -1,0 +1,128 @@
+{
+	"info": {
+		"_postman_id": "bc1c46f1-8844-4e88-be8a-8ead33e9164f",
+		"name": "OpenAI Azure",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16476334"
+	},
+	"item": [
+		{
+			"name": "Completions Request",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "api-key",
+						"value": "298dda2a50db47608e2436939d8d62ca",
+						"description": "API Key",
+						"type": "text"
+					},
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "298dda2a50db47608e2436939d8d62ca",
+						"description": "API Key",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"messages\": [\r\n    {\r\n      \"role\": \"system\",\r\n      \"content\": \"You are an AI assistant that helps people find information.\"\r\n    },\r\n    {\r\n      \"role\": \"user\",\r\n      \"content\": \"This is a example message\"\r\n    },\r\n    {\r\n      \"role\": \"assistant\",\r\n      \"content\": \"Hello! How can I assist you today?\"\r\n    }\r\n  ],\r\n  \"temperature\": 0.7,\r\n  \"top_p\": 0.95,\r\n  \"frequency_penalty\": 0,\r\n  \"presence_penalty\": 0,\r\n  \"max_tokens\": 800,\r\n  \"stop\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://prototype101.openai.azure.com/openai/deployments/example1/chat/completions?api-version=2023-07-01-preview",
+					"protocol": "https",
+					"host": [
+						"prototype101",
+						"openai",
+						"azure",
+						"com"
+					],
+					"path": [
+						"openai",
+						"deployments",
+						"example1",
+						"chat",
+						"completions"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"description": "2023-05-15",
+							"disabled": true
+						},
+						{
+							"key": "api-version",
+							"value": "2023-07-01-preview"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1.Summarization",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "api-key",
+						"value": "298dda2a50db47608e2436939d8d62ca",
+						"description": "API Key",
+						"type": "text"
+					},
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "298dda2a50db47608e2436939d8d62ca",
+						"description": "API Key",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"messages\": [\r\n    {\r\n      \"role\": \"system\",\r\n      \"content\": \"You will generate a bulletpoint list of the information you will be provided. You will always respond with the bullet points and no other statements. You are only allowed to generate information from the input provided.\"\r\n    },\r\n    {\r\n      \"role\": \"user\",\r\n      \"content\": \"Content goes here\"\r\n    }\r\n  ],\r\n  \"temperature\": 0.7,\r\n  \"top_p\": 0.95,\r\n  \"frequency_penalty\": 0,\r\n  \"presence_penalty\": 0,\r\n  \"max_tokens\": 800,\r\n  \"stop\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://prototype101.openai.azure.com/openai/deployments/example1/chat/completions?api-version=2023-07-01-preview",
+					"protocol": "https",
+					"host": [
+						"prototype101",
+						"openai",
+						"azure",
+						"com"
+					],
+					"path": [
+						"openai",
+						"deployments",
+						"example1",
+						"chat",
+						"completions"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"description": "2023-05-15",
+							"disabled": true
+						},
+						{
+							"key": "api-version",
+							"value": "2023-07-01-preview"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
