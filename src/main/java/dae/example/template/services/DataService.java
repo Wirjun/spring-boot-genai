@@ -47,14 +47,19 @@ public class DataService {
                 os.write(input, 0, input.length);
             }
 
+            StringBuilder response = new StringBuilder();
             try(BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
-                StringBuilder response = new StringBuilder();
                 String responseLine;
                 while ((responseLine = br.readLine()) != null) {
                     response.append(responseLine.trim());
                 }
-                return response.toString();
             }
+
+            // Parse JSON and extract the message content
+            JSONObject jsonResponse = new JSONObject(response.toString());
+            String summary = jsonResponse.getJSONArray("choices").getJSONObject(0).getJSONObject("message").getString("content");
+
+            return summary;
         } catch (Exception e) {
             e.printStackTrace();
             return "Error occurred while generating summary";
@@ -78,14 +83,29 @@ public class DataService {
                 os.write(input, 0, input.length);
             }
 
+            StringBuilder response = new StringBuilder();
             try(BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
-                StringBuilder response = new StringBuilder();
                 String responseLine;
                 while ((responseLine = br.readLine()) != null) {
                     response.append(responseLine.trim());
                 }
-                return response.toString();
             }
+
+            // Parse JSON and extract the embedding
+            JSONObject jsonResponse = new JSONObject(response.toString());
+            JSONArray embeddingArray = jsonResponse.getJSONArray("data").getJSONObject(0).getJSONArray("embedding");
+
+            // Convert the JSONArray to a string representation of a vector
+            StringBuilder embeddingVector = new StringBuilder("[");
+            for (int i = 0; i < embeddingArray.length(); i++) {
+                embeddingVector.append(embeddingArray.getDouble(i));
+                if (i < embeddingArray.length() - 1) {
+                    embeddingVector.append(", ");
+                }
+            }
+            embeddingVector.append("]");
+
+            return embeddingVector.toString();
         } catch (Exception e) {
             e.printStackTrace();
             return "Error occurred while generating embedding";
