@@ -1,6 +1,6 @@
 package dae.example.template.beans;
 
-import dae.example.template.entities.Expansion;
+import dae.example.template.entities.Data;
 import dae.example.template.services.ExpansionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -17,19 +17,19 @@ public class ExpansionBean {
     @Autowired
     private ExpansionService expansionService;
 
-    private List<Expansion> expansions;
+    private List<Data> data;
 
     @PostConstruct
     public void init() {
-        expansions = expansionService.findAll();
+        data = expansionService.findAll();
     }
 
-    public List<Expansion> getExpansions() {
-        return expansions;
+    public List<Data> getExpansions() {
+        return data;
     }
 
-    public void setExpansions(List<Expansion> expansions) {
-        this.expansions = expansions;
+    public void setExpansions(List<Data> data) {
+        this.data = data;
     }
 
     public void redirect() throws IOException {
