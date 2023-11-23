@@ -8,11 +8,11 @@
         <h:body>
             <h:form>
                 <p:inputTextarea rows="10" cols="30" counter="display" maxlength="30000"
-                                 value="#{dataBean.inputData}"
+                                 value="#{dataBean.uploadData}" style="width: 100%; margin-bottom: 10px"
                                  counterTemplate="{0} characters remaining." autoResize="false"/>
                 <br/>
                 <h:outputText id="display" class="block" />
-                <p:commandButton value="Upload" action="#{dataBean.uploadAndSave()}"/>
+                <p:commandButton value="Upload" action="#{dataBean.uploadAndSave()}" style="float: right"/>
             </h:form>
         </h:body>
     </ui:define>

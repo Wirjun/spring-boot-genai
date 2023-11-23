@@ -150,4 +150,31 @@ body {
     .navbar .link-text {
         display: inline;
     }
+
+    .dottet {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        width: 160px;
+        white-space: nowrap;
+    }
+
+    .playground {
+        border-radius: 10px;
+    }
+
+    .item {
+        padding: 10px;
+        background: white;
+        border-radius: 10px;
+        border: 1px solid lightgray;
+        margin-bottom: 10px;
+    }
+
+    .CUSTOMER {
+        background: lightgray;
+    }
+
+    .BOT {
+        background: lightblue;
+    }
 }

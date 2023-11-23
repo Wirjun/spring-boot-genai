@@ -3,6 +3,7 @@ package dae.example.template;
 import dae.example.template.entities.Data;
 import dae.example.template.services.DataService;
 import dae.example.template.util.CosineSimilarity;
+import dae.example.template.util.OpenAIConnector;
 import dae.example.template.util.VectorParser;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class TemplateApplicationTests {
     public void test() {
         String question = "Wann war das Schulsilvester?";
         HashMap<String, String> map = new HashMap<>();
-        String embeddingQuestion = dataService.createEmbedding(question);
+        String embeddingQuestion = OpenAIConnector.createEmbedding(question);
         List<Double> vectorQuestion = VectorParser.parseVector(embeddingQuestion);
         HashMap<Long, Double> results = new HashMap<>();
         for (Data data : dataService.findAll()) {
@@ -30,12 +31,6 @@ public class TemplateApplicationTests {
             results.put(data.getId(), calculate);
             map.put("assistant", data.getSummary());
         }
-
-        System.out.println(results);
-
-       // String answer = dataService.answer(question, map);
-        System.out.println("here");
-        //Implement me
+       //String answer = OpenAIConnector.answer(question, map);
     }
-
 }

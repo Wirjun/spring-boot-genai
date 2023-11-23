@@ -7,7 +7,26 @@
     <ui:define name="content">
         <h:body>
             <h:form>
-                //Implement Chat Logik
+                <div class="playground">
+                    <ui:repeat value="#{dataBean.history.entrySet()}" var="history">
+                        <div>
+                            <div class="item #{history.value.role}">
+                                <h:panelGroup style="font-size: small; color: gray">
+                                    <h:outputText value="#{history.value.role.value}"/>
+                                    <h:outputText value=": "/>
+                                    <h:outputText value="#{formatters.formatLocalDateTime(history.value.localDateTime)}"/>
+                                </h:panelGroup>
+
+                                <br/>
+                                <h:outputText value="#{history.value.message}"/>
+                                <br/>
+                            </div>
+                        </div>
+                    </ui:repeat>
+                    <br/>
+                    <p:inputText value="#{dataBean.inputData}" placeholder="Ask me anything ..." style="width: calc(100% - 60px)"/>
+                    <p:commandButton styleClass="rounded-button" style="margin-left: 10px" icon="far fa-paper-plane" action="#{dataBean.send()}" update="@form"/>
+                </div>
             </h:form>
         </h:body>
     </ui:define>
