@@ -4,21 +4,14 @@ import dae.example.template.entities.Data;
 import dae.example.template.entities.Message;
 import dae.example.template.entities.Role;
 import dae.example.template.services.DataService;
-import dae.example.template.util.CosineSimilarity;
 import dae.example.template.util.OpenAIConnector;
-import dae.example.template.util.VectorParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import javax.el.MethodExpression;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Component
 @Scope("view")

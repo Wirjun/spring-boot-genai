@@ -5,20 +5,10 @@ import dae.example.template.repos.DataRepo;
 import dae.example.template.util.CosineSimilarity;
 import dae.example.template.util.OpenAIConnector;
 import dae.example.template.util.VectorParser;
-import org.apache.commons.text.StringEscapeUtils;
-import org.primefaces.shaded.json.JSONArray;
-import org.primefaces.shaded.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,19 +19,19 @@ import java.util.Optional;
 public class DataService {
 
     @Autowired
-    private DataRepo expansionRepo;
+    private DataRepo dataRepo;
 
     public List<Data> findAll() {
-        return expansionRepo.findAll();
+        return dataRepo.findAll();
     }
 
     @Transactional
-    public Data saveOrUpdate(Data data){
-        return expansionRepo.save(data);
+    public Data saveOrUpdate(Data data) {
+        return dataRepo.save(data);
     }
 
     public Data findById(final Long id) {
-        return expansionRepo.findById(id).orElseThrow();
+        return dataRepo.findById(id).orElseThrow();
     }
 
     public String predictAnswer(final String input) {
@@ -58,7 +48,13 @@ public class DataService {
         Optional<Map.Entry<Long, Double>> min = results.entrySet().stream().max(Map.Entry.comparingByValue());
         Data data = findById(min.get().getKey());
 
-        String answer = OpenAIConnector.answer(input, Map.of("system", data.getSummary()));
-        return answer;
+        String content;
+        if (min.get().getValue() > 0.8) {
+            content = data.getSummary();
+        } else {
+            content = "You will answer, that you did not find any information in your database context.";
+        }
+
+        return OpenAIConnector.answer(input, Map.of("assistant", content));
     }
 }

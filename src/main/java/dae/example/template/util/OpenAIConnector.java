@@ -118,7 +118,7 @@ public class OpenAIConnector {
             JSONArray messages = new JSONArray();
             messages.put(new JSONObject()
                     .put("role", "system")
-                    .put("content", "You will answer the question according to the knowledge provided. If the word 'unknown' is provided, you will answer that no information was found in the knowledge data. When information from the context is available, you will answer the question to the user!"));
+                    .put("content", "You will answer the question according to the knowledge provided. If the word \"unknown\" is provided, you will answer that no information was found in the knowledge data. When information from the context is available, you will answer the question to the user!"));
 
             // Add context messages
             for (Map.Entry<String, String> entry : context.entrySet()) {
