@@ -48,13 +48,10 @@ public class DataService {
         Optional<Map.Entry<Long, Double>> min = results.entrySet().stream().max(Map.Entry.comparingByValue());
         Data data = findById(min.get().getKey());
 
-        String content;
-        if (min.get().getValue() > 0.8) {
-            content = data.getSummary();
+        if (min.get().getValue() > 0.75) {
+            return OpenAIConnector.answer(input, Map.of("assistant", data.getSummary()));
         } else {
-            content = "You will answer, that you did not find any information in your database context.";
+            return "unknown";
         }
-
-        return OpenAIConnector.answer(input, Map.of("assistant", content));
     }
 }
